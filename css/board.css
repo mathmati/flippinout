@@ -42,11 +42,11 @@
   }
 }
 
-/* Landscape fullscreen - fit 5 rows */
+/* Landscape fullscreen - fit 7 rows */
 @media (orientation: landscape) {
   :fullscreen .board {
-    /* Calculate: (viewport_height - padding - settings) / 5 rows */
-    --tile-size: calc((100vh - 60px) / 5.5);
+    /* Calculate: (viewport_height - padding - settings) / 7 rows */
+    --tile-size: calc((100vh - 60px) / 7.5);
     --tile-gap: 2px;
     padding: 2px 2px 50px 2px;
   }

@@ -42,9 +42,11 @@ export class ClockMode {
       
       const message = [
         '',
-        `${dayName}  ${date} ${monthName} ${year}`,
+        dayName,
+        `${date} ${monthName} ${year}`,
         '',
         `${hours}:${minutes}:${seconds}`,
+        '',
         ''
       ];
       
