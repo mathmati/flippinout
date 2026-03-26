@@ -22,18 +22,19 @@
   }
 }
 
-/* Fullscreen mode - use smaller of vw/vh for better fit */
+/* Fullscreen mode - calculate to fit 22 columns */
 :fullscreen .board {
-  --tile-size: clamp(16px, min(3.5vw, 3.5vh), 68px);
-  --tile-gap: clamp(2px, min(0.3vw, 0.3vh), 6px);
+  padding: 6px;
 }
 
-/* Portrait fullscreen - prioritize width */
-@media (max-width: 767px) and (orientation: portrait) {
+/* Portrait fullscreen - fit 22 cols to width */
+@media (orientation: portrait) {
   :fullscreen .board {
-    --tile-size: clamp(14px, 3.2vw, 40px);
-    --tile-gap: clamp(1px, 0.25vw, 4px);
-    padding: 4px;
+    /* Formula: (100vw - padding) / (22 tiles + 21 gaps) */
+    /* Assuming gap = tile/8 for proportion: (100vw - 12px) / (22 + 21/8) = (100vw - 12px) / 24.625 */
+    --tile-size: calc((100vw - 12px) / 24.625);
+    --tile-gap: calc(var(--tile-size) / 8);
+    padding: 6px;
   }
   
   :fullscreen .settings-tiles {
@@ -41,13 +42,19 @@
     left: 6px;
     right: 6px;
   }
+  
+  :fullscreen .tile-grid {
+    width: 100%;
+  }
 }
 
-/* Landscape fullscreen - prioritize height */
-@media (max-width: 767px) and (orientation: landscape) {
+/* Landscape fullscreen - fit to height */
+@media (orientation: landscape) {
   :fullscreen .board {
-    --tile-size: clamp(16px, 3.8vh, 50px);
-    --tile-gap: clamp(2px, 0.3vh, 4px);
+    /* Formula: (100vh - padding - settings height) / (5 rows + 4 gaps) */
+    --tile-size: calc((100vh - 60px) / 5.5);
+    --tile-gap: calc(var(--tile-size) / 8);
+    padding: 6px 6px 50px 6px;
   }
 }
 
@@ -62,6 +69,13 @@
   opacity: 0.3;
   pointer-events: none;
   z-index: 1;
+}
+
+/* Simplify in fullscreen mobile */
+@media (max-width: 767px) {
+  :fullscreen .board::before {
+    opacity: 0.15;
+  }
 }
 
 /* Tile Grid */
@@ -96,6 +110,21 @@
   height: 14px;
   border-radius: 2px;
   transition: background-color 0.5s ease;
+}
+
+/* Hide accent bars in fullscreen on mobile */
+@media (max-width: 767px) {
+  :fullscreen .accent-bar {
+    display: none;
+  }
+  
+  :fullscreen .keyboard-hint {
+    display: none;
+  }
+  
+  :fullscreen .shortcuts-overlay {
+    display: none;
+  }
 }
 
 /* Keyboard Shortcut Indicator */
@@ -163,10 +192,9 @@
 .settings-tiles {
   display: none;
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  right: 12px;
-  display: flex;
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
   justify-content: space-between;
   z-index: 10;
   pointer-events: none;
@@ -186,7 +214,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(var(--tile-size) * 0.35);
+  font-size: calc(var(--tile-size) * 0.38);
   font-weight: 900;
   color: var(--theme-text-color, #FFFFFF);
   text-shadow: 0 0 12px currentColor, 0 0 4px currentColor;
@@ -214,6 +242,13 @@
   0% { transform: rotateX(0deg); }
   50% { transform: rotateX(-90deg); }
   100% { transform: rotateX(-180deg); }
+}
+
+/* Fullscreen: position settings tiles properly */
+:fullscreen .settings-tiles {
+  bottom: 4px;
+  left: 4px;
+  right: 4px;
 }
 
 /* Hide on desktop */
