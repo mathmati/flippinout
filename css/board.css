@@ -1,18 +1,25 @@
 /* Board Container */
 .board {
-  --tile-size: clamp(40px, 4.5vw, 68px);
-  --tile-gap: clamp(4px, 0.35vw, 6px);
+  --tile-size: clamp(20px, 3.5vw, 68px);
+  --tile-gap: clamp(2px, 0.25vw, 6px);
 
   position: relative;
   background: var(--theme-board-bg, #1A1A1A);
   border-radius: 20px;
-  padding: 32px 52px 44px;
+  padding: 16px 12px 52px;
   width: 100%;
   box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 0 0 1px rgba(255, 255, 255, 0.05),
     0 -2px 8px rgba(0, 0, 0, 0.2);
   overflow: hidden;
+}
+
+/* Better padding on larger screens */
+@media (min-width: 768px) {
+  .board {
+    padding: 32px 52px 44px;
+  }
 }
 
 /* Vintage grain texture overlay */
@@ -123,15 +130,43 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Scroll indicator at bottom of board */
-.board::after {
-  content: '';
+/* Mobile controls (bottom center) */
+.mobile-controls {
   position: absolute;
   bottom: 12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 40px;
-  height: 4px;
-  border-radius: 2px;
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.mobile-controls button {
+  background: rgba(0, 0, 0, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.8);
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  backdrop-filter: blur(8px);
+}
+
+.mobile-controls button:active {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(0.95);
+}
+
+.mobile-controls button.active {
   background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Hide on desktop (has keyboard) */
+@media (min-width: 768px) {
+  .mobile-controls {
+    display: none;
+  }
 }
