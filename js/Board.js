@@ -74,23 +74,30 @@ export class Board {
     `;
     this.boardEl.appendChild(overlay);
 
-    // Settings flip tiles (mobile only - bottom corners, grey and dimmed)
+    // Settings flip tiles (mobile only - grey/faint)
     const settingsTiles = document.createElement('div');
     settingsTiles.className = 'settings-tiles';
     
-    // Left tile: "Th" for Theme
+    // Left tile: Theme (grey/faint)
     this.leftSettingTile = document.createElement('div');
     this.leftSettingTile.className = 'settings-tile';
     this.leftSettingTile.id = 'left-setting-tile';
-    this.leftSettingTile.textContent = 'Th';
+    this.leftSettingTile.textContent = 'THEME';
     
-    // Right tile: gear icon for settings menu
+    // Center tile: Clock (grey/faint)
+    this.centerSettingTile = document.createElement('div');
+    this.centerSettingTile.className = 'settings-tile';
+    this.centerSettingTile.id = 'center-setting-tile';
+    this.centerSettingTile.textContent = 'CLOCK';
+    
+    // Right tile: Fullscreen button
     this.rightSettingTile = document.createElement('div');
-    this.rightSettingTile.className = 'settings-tile';
+    this.rightSettingTile.className = 'settings-tile settings-tile-primary';
     this.rightSettingTile.id = 'right-setting-tile';
-    this.rightSettingTile.textContent = '⚙';
+    this.rightSettingTile.textContent = 'FULL';
     
     settingsTiles.appendChild(this.leftSettingTile);
+    settingsTiles.appendChild(this.centerSettingTile);
     settingsTiles.appendChild(this.rightSettingTile);
     this.boardEl.appendChild(settingsTiles);
 
