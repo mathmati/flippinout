@@ -10,44 +10,43 @@ export const MESSAGE_INTERVAL = 6000;
 
 export const CHARSET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,-!?\'/: ';
 
-// Vintage display themes
+// Vintage display themes (monochrome per theme - authentic to real mechanical boards)
 export const THEMES = {
   classic: {
-    name: 'Classic White',
+    name: 'Classic Airport',
     textColor: '#FFFFFF',
-    bgColor: '#222',
-    boardBg: '#1A1A1A',
-    scrambleColors: ['#00AAFF', '#00FFCC', '#AA00FF', '#FF2D00', '#FFCC00', '#FFFFFF'],
-    accentColors: ['#00FF7F', '#FF4D00', '#AA00FF', '#00AAFF', '#00FFCC']
+    bgColor: '#1C1C1C',
+    boardBg: '#0F0F0F',
+    tileBg: '#1C1C1C',
+    accentColor: '#FFFFFF'
   },
   amber: {
     name: 'Vintage Amber',
     textColor: '#FFB000',
-    bgColor: '#2A1810',
-    boardBg: '#1A0F08',
-    scrambleColors: ['#FFB000', '#FF8800', '#FFCC00', '#FFA000', '#FF9000'],
-    accentColors: ['#FFB000', '#FF8800', '#FFCC00']
+    bgColor: '#1A1008',
+    boardBg: '#0A0804',
+    tileBg: '#1A1008',
+    accentColor: '#FFB000'
   },
   green: {
     name: 'Terminal Green',
     textColor: '#00FF41',
-    bgColor: '#0D1F0D',
-    boardBg: '#080F08',
-    scrambleColors: ['#00FF41', '#00DD33', '#00BB22', '#00FF88', '#00CC44'],
-    accentColors: ['#00FF41', '#00DD33', '#00BB22']
+    bgColor: '#0A1508',
+    boardBg: '#050A04',
+    tileBg: '#0A1508',
+    accentColor: '#00FF41'
   },
   cyan: {
-    name: 'Airport Blue',
-    textColor: '#00E5FF',
-    bgColor: '#0A1820',
-    boardBg: '#050C10',
-    scrambleColors: ['#00E5FF', '#00C4DD', '#00A3BB', '#00FFFF', '#00D4EE'],
-    accentColors: ['#00E5FF', '#00C4DD', '#00A3BB']
+    name: 'Railway Blue',
+    textColor: '#4DD0E1',
+    bgColor: '#0A1418',
+    boardBg: '#050A0C',
+    tileBg: '#0A1418',
+    accentColor: '#4DD0E1'
   }
 };
 
-export const SCRAMBLE_COLORS = THEMES.classic.scrambleColors;
-export const ACCENT_COLORS = THEMES.classic.accentColors;
+// Removed multicolor scramble - not authentic to real mechanical boards
 
 export const MESSAGES = [
   [
