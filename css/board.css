@@ -188,13 +188,13 @@
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Settings flip tiles (bottom corners on mobile) */
+/* Settings overlay tiles (bottom corners, part of grid on mobile) */
 .settings-tiles {
   display: none;
   position: absolute;
-  bottom: 8px;
-  left: 8px;
-  right: 8px;
+  bottom: calc(var(--tile-gap) + 6px);
+  left: calc(var(--tile-gap));
+  right: calc(var(--tile-gap));
   justify-content: space-between;
   z-index: 10;
   pointer-events: none;
@@ -207,19 +207,19 @@
 }
 
 .settings-tile {
-  width: calc(var(--tile-size) * 2.5);
+  width: calc(var(--tile-size) * 2);
   height: var(--tile-size);
-  background: var(--theme-tile-bg, #1C1C1C);
+  background: #2A2A2A;
   border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(var(--tile-size) * 0.38);
+  font-size: calc(var(--tile-size) * 0.42);
   font-weight: 900;
-  color: var(--theme-text-color, #FFFFFF);
-  text-shadow: 0 0 12px currentColor, 0 0 4px currentColor;
+  color: #666;
+  text-shadow: 0 0 8px rgba(102, 102, 102, 0.3);
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: all 0.2s;
   pointer-events: auto;
   box-shadow:
     0 2px 4px rgba(0, 0, 0, 0.4),
@@ -228,9 +228,11 @@
     inset 0 -1px 2px rgba(255, 255, 255, 0.03);
   position: relative;
   perspective: 600px;
+  opacity: 0.6;
 }
 
 .settings-tile:active {
+  opacity: 0.8;
   transform: scale(0.95);
 }
 
@@ -244,11 +246,11 @@
   100% { transform: rotateX(-180deg); }
 }
 
-/* Fullscreen: position settings tiles properly */
+/* Position within grid in fullscreen */
 :fullscreen .settings-tiles {
-  bottom: 4px;
-  left: 4px;
-  right: 4px;
+  bottom: calc(var(--tile-gap) + 2px);
+  left: var(--tile-gap);
+  right: var(--tile-gap);
 }
 
 /* Hide on desktop */
