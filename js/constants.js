@@ -138,5 +138,14 @@ export const MESSAGES = [
     '- ALAN KAY',
     '',
     ''
+  ],
+  [
+    '',
+    'I WILL RAGE CODE',
+    'THIS IN A FEW MINUTES',
+    '',
+    '- WAYNE',
+    '',
+    ''
   ]
 ];
