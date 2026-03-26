@@ -82,6 +82,45 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 400);
     });
   }
+
+  // Mobile controls
+  const mobileThemeBtn = document.getElementById('mobile-theme-btn');
+  const mobileClockBtn = document.getElementById('mobile-clock-btn');
+  const mobileFullscreenBtn = document.getElementById('mobile-fullscreen-btn');
+
+  if (mobileThemeBtn) {
+    mobileThemeBtn.addEventListener('click', () => {
+      const themeName = themeManager.cycleTheme();
+      showNotification(`Theme: ${themeName}`);
+    });
+  }
+
+  if (mobileClockBtn) {
+    mobileClockBtn.addEventListener('click', () => {
+      isClockMode = !isClockMode;
+      if (isClockMode) {
+        rotator.stop();
+        clockMode.start();
+        mobileClockBtn.classList.add('active');
+        showNotification('Clock Mode ON');
+      } else {
+        clockMode.stop();
+        rotator.start();
+        mobileClockBtn.classList.remove('active');
+        showNotification('Message Mode ON');
+      }
+    });
+  }
+
+  if (mobileFullscreenBtn) {
+    mobileFullscreenBtn.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+  }
   
   // Notification system for theme/mode changes
   function showNotification(message) {

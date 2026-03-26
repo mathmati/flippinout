@@ -1,14 +1,24 @@
 /* Page Frame — mock browser window */
 .page-frame {
   max-width: 1280px;
-  margin: 24px auto;
+  margin: 0 auto;
   background: #F5F5F5;
-  border-radius: 16px;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+  box-shadow: none;
   overflow: hidden;
-  min-height: calc(100vh - 48px);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/* Desktop styling */
+@media (min-width: 768px) {
+  .page-frame {
+    margin: 24px auto;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+    min-height: calc(100vh - 48px);
+  }
 }
 
 /* Header */
@@ -66,18 +76,31 @@
 /* Hero */
 .hero {
   text-align: center;
-  padding: 56px 24px 44px;
+  padding: 24px 16px 20px;
   flex-shrink: 0;
 }
 
 .hero h1 {
-  font-size: 48px;
+  font-size: 28px;
   font-weight: 800;
-  letter-spacing: -1.5px;
-  line-height: 1.15;
+  letter-spacing: -0.8px;
+  line-height: 1.2;
   max-width: 650px;
-  margin: 0 auto 14px;
+  margin: 0 auto 10px;
   color: #111;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding: 56px 24px 44px;
+  }
+  
+  .hero h1 {
+    font-size: 48px;
+    letter-spacing: -1.5px;
+    line-height: 1.15;
+    margin: 0 auto 14px;
+  }
 }
 
 .hero .subtitle {
@@ -131,7 +154,13 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding: 0 24px 32px;
+  padding: 0 8px 16px;
+}
+
+@media (min-width: 768px) {
+  .board-section {
+    padding: 0 24px 32px;
+  }
 }
 
 /* Fullscreen: hide header+hero, board fills viewport */
@@ -144,6 +173,29 @@
   padding: 0;
   height: 100vh;
   align-items: center;
+}
+
+/* Hide email and keyboard hint on mobile */
+.hero-cta input,
+.hero p:last-child {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .hero-cta input,
+  .hero p:last-child {
+    display: block;
+  }
+}
+
+.hero-cta button {
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .hero-cta button {
+    width: auto;
+  }
 }
 
 /* Mode notification (theme/clock changes) */

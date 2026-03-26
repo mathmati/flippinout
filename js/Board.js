@@ -74,6 +74,16 @@ export class Board {
     `;
     this.boardEl.appendChild(overlay);
 
+    // Mobile controls
+    const mobileControls = document.createElement('div');
+    mobileControls.className = 'mobile-controls';
+    mobileControls.innerHTML = `
+      <button id="mobile-theme-btn">🎨 Theme</button>
+      <button id="mobile-clock-btn">⏰ Clock</button>
+      <button id="mobile-fullscreen-btn">⛶ Full</button>
+    `;
+    this.boardEl.appendChild(mobileControls);
+
     containerEl.appendChild(this.boardEl);
     this._updateAccentColors();
   }
