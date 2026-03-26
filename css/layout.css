@@ -145,3 +145,28 @@
   height: 100vh;
   align-items: center;
 }
+
+/* Mode notification (theme/clock changes) */
+.mode-notification {
+  position: fixed;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-20px);
+  background: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 1000;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.mode-notification.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

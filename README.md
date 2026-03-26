@@ -1,86 +1,101 @@
-# FlipOff.
+# FlipOff Enhanced — Vintage Split-Flap Display
 
-**Turn any TV into a retro split-flap display.** The classic flip-board look, without the $3,500 hardware. And it's free.
+An enhanced fork of [magnum6actual/flipoff](https://github.com/magnum6actual/flipoff) with improved mechanics, vintage themes, and clock mode.
 
-![FlipOff Screenshot](screenshot.png)
+## ✨ New Features
 
-## What is this?
+### 🎨 Four Vintage Themes
+- **Classic White** — Modern split-flap (original style)
+- **Vintage Amber** — 1970s airport terminals
+- **Terminal Green** — Old-school CRT displays  
+- **Airport Blue** — Modern travel hub aesthetic
 
-FlipOff is a free, open-source web app that emulates a classic mechanical split-flap (flip-board) airport terminal display — the kind you'd see at train stations and airports. It runs full-screen in any browser, turning a TV or large monitor into a beautiful retro display.
+Press **T** to cycle through themes
 
-No accounts. No subscriptions. No $199 fee. Just open `index.html` and go.
+### ⏰ Live Clock Mode
+- Real-time clock display with date
+- Mechanical flip animation on every second
+- Toggle with **C** key
 
-## Features
+### 🔧 Enhanced Mechanics
+- **More authentic timing** — Slower, more deliberate flips (1.2s vs 0.8s scramble)
+- **Better animation** — Mechanical bounce and overshoot on settle
+- **Improved stagger** — 35ms delay between tiles (was 25ms)
+- **Glowing accents** — Theme-colored indicators with glow effects
+- **Vintage grain** — Subtle texture overlay for retro feel
 
-- Realistic split-flap animation with colorful scramble transitions
-- Authentic mechanical clacking sound (recorded from a real split-flap display)
-- Auto-rotating inspirational quotes
-- Fullscreen TV mode (press `F`)
-- Keyboard controls for manual navigation
-- Works offline — zero external dependencies
-- Responsive from mobile to 4K displays
-- Pure vanilla HTML/CSS/JS — no frameworks, no build tools, no npm
+### 🎯 Better Visuals
+- **Larger tiles** — 40-68px (was 36-62px) for better legibility
+- **Improved contrast** — Text shadow and glow for each theme
+- **Deeper shadows** — More 3D depth on tiles
+- **Smoother gaps** — 4-6px spacing (was 3-5px)
 
-## Quick Start
-
-1. Clone the repo
-2. Open `index.html` in a browser (or serve with any static file server)
-3. Click anywhere to enable audio
-4. Press `F` for fullscreen TV mode
-
-```bash
-# Or serve locally:
-python3 -m http.server 8080
-# Then open http://localhost:8080
-```
-
-## Keyboard Shortcuts
+## 🎹 Keyboard Controls
 
 | Key | Action |
 |-----|--------|
-| `Enter` / `Space` | Next message |
-| `Arrow Left` | Previous message |
-| `Arrow Right` | Next message |
-| `F` | Toggle fullscreen |
-| `M` | Toggle mute |
-| `Escape` | Exit fullscreen |
+| **Enter** | Next message |
+| **←** | Previous message |
+| **C** | Toggle clock mode |
+| **T** | Cycle theme |
+| **F** | Fullscreen |
+| **M** | Mute/unmute |
+| **N** | Show shortcuts |
 
-## How It Works
+## 🚀 Quick Start
 
-Each tile on the board is an independent element that can animate through a scramble sequence (rapid random characters with colored backgrounds) before settling on the final character. Only tiles whose content changes between messages animate — just like a real mechanical board.
+1. Open `index.html` in a browser
+2. Click "Try It Now" or press **F** for fullscreen
+3. Press **C** for clock mode
+4. Press **T** to change themes
 
-The sound is a single recorded audio clip of a real split-flap transition, played once per message change to perfectly sync with the visual animation.
+## 🎬 Perfect For
 
-## File Structure
+- **Office lobbies** — Display time or rotating quotes
+- **Home decor** — Vintage aesthetic on any TV
+- **Events** — Retro countdown or info boards
+- **Streaming overlays** — OBS browser source with character
+- **Waiting rooms** — Calming mechanical animation
 
-```
-flipoff/
-  index.html           — Single-page app
-  css/
-    reset.css          — CSS reset
-    layout.css         — Page layout (header, hero, board)
-    board.css          — Board container and accent bars
-    tile.css           — Tile styling and 3D flip animation
-    responsive.css     — Media queries for all screen sizes
-  js/
-    main.js            — Entry point and UI wiring
-    Board.js           — Grid manager and transition orchestration
-    Tile.js            — Individual tile animation logic
-    SoundEngine.js     — Audio playback with Web Audio API
-    MessageRotator.js  — Quote rotation timer
-    KeyboardController.js — Keyboard shortcut handling
-    constants.js       — Configuration (grid size, colors, quotes)
-    flapAudio.js       — Embedded audio data (base64)
-```
+## 📦 What Changed
 
-## Customization
+### Code Improvements
+- `ThemeManager.js` — New theme system with CSS variables
+- `ClockMode.js` — Live clock display with date
+- Enhanced timing constants for more authentic feel
+- Theme-aware tile scramble colors
+- Better animation easing curves
 
-Edit `js/constants.js` to change:
-- **Messages**: Add your own quotes or text
-- **Grid size**: Adjust `GRID_COLS` and `GRID_ROWS`
-- **Timing**: Tweak `SCRAMBLE_DURATION`, `STAGGER_DELAY`, etc.
-- **Colors**: Modify `SCRAMBLE_COLORS` and `ACCENT_COLORS`
+### Visual Enhancements
+- Vintage grain texture overlay
+- Glow effects on accent indicators
+- Improved tile shadows and depth
+- Larger, more legible font (55% vs 52% of tile size)
+- Font weight 900 (was 700) for boldness
 
-## License
+### UX Polish
+- On-screen notification for theme/mode changes
+- Keyboard hints in hero section
+- Updated shortcuts overlay
+- Better CTAs and copy
 
-MIT — do whatever you want with it.
+## 🎨 Theme Details
+
+Each theme includes:
+- Custom text color with glow
+- Background colors (tile and board)
+- 5 scramble animation colors
+- 3 accent indicator colors
+
+## 📝 Credits
+
+Original: [magnum6actual/flipoff](https://github.com/magnum6actual/flipoff)  
+Enhanced by: Clawd (Mathew's AI assistant)
+
+## 📄 License
+
+Same as original — check original repo for license details.
+
+---
+
+**Press T to cycle themes · Press C for clock · Press F for fullscreen**
