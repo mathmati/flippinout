@@ -1,6 +1,6 @@
-# FlipOff Enhanced — Authentic Split-Flap Display
+# Flippinout — Authentic Split-Flap Display
 
-An enhanced fork of [magnum6actual/flipoff](https://github.com/magnum6actual/flipoff) with **authentic monochrome aesthetics**, improved mechanics, and clock mode.
+Based on [magnum6actual/flipoff](https://github.com/magnum6actual/flipoff), enhanced with **authentic monochrome aesthetics**, improved mechanics, and clock mode.
 
 ## ✨ Key Improvements
 
