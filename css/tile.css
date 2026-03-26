@@ -108,8 +108,34 @@
   }
 }
 
-/* GPU compositing hint during animation only */
-.tile-inner.flipping,
+/* GPU acceleration for smooth 3D flips */
+.tile-inner.flipping {
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
 .tile.scrambling .tile-inner {
   will-change: transform;
+}
+
+/* Ensure smooth backface visibility during flip */
+.tile-inner.flipping .tile-front,
+.tile-inner.flipping .tile-back {
+  backface-visibility: hidden;
+}
+
+/* Add depth shadow during flip for 3D effect */
+.tile.scrambling {
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* Enhance perspective for more dramatic flip */
+.tile {
+  perspective: 800px;
+}
+
+.tile-inner {
+  transform-style: preserve-3d;
 }

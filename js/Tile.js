@@ -71,25 +71,40 @@ export class Tile {
           clearInterval(this._scrambleTimer);
           this._scrambleTimer = null;
 
-          // Set the final character with mechanical settling animation
-          this.frontSpan.textContent = targetChar === ' ' ? '' : targetChar;
+          // Prepare back face with new character
+          this.backSpan.textContent = targetChar === ' ' ? '' : targetChar;
 
-          // Mechanical flip settle: slight overshoot and bounce back
-          this.innerEl.style.transition = `transform ${FLIP_DURATION}ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`;
-          this.innerEl.style.transform = 'perspective(600px) rotateX(-12deg)';
+          // Full 3D mechanical flip animation
+          this.innerEl.classList.add('flipping');
+          this.innerEl.style.transition = `transform ${FLIP_DURATION * 1.5}ms ease-in-out`;
+          this.innerEl.style.transform = 'perspective(600px) rotateX(-180deg)';
 
           setTimeout(() => {
-            this.innerEl.style.transform = 'perspective(600px) rotateX(3deg)';
+            // Swap characters
+            this.frontSpan.textContent = targetChar === ' ' ? '' : targetChar;
+            this.backSpan.textContent = '';
+            
+            // Reset rotation
+            this.innerEl.style.transition = 'none';
+            this.innerEl.style.transform = '';
+            this.innerEl.classList.remove('flipping');
+            
+            // Brief settle bounce
             setTimeout(() => {
-              this.innerEl.style.transform = '';
+              this.innerEl.style.transition = `transform ${FLIP_DURATION / 2}ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`;
+              this.innerEl.style.transform = 'perspective(600px) rotateX(-3deg)';
+              
               setTimeout(() => {
-                this.innerEl.style.transition = '';
-                this.el.classList.remove('scrambling');
-                this.currentChar = targetChar;
-                this.isAnimating = false;
-              }, FLIP_DURATION / 2);
-            }, FLIP_DURATION / 3);
-          }, FLIP_DURATION / 2);
+                this.innerEl.style.transform = '';
+                setTimeout(() => {
+                  this.innerEl.style.transition = '';
+                  this.el.classList.remove('scrambling');
+                  this.currentChar = targetChar;
+                  this.isAnimating = false;
+                }, 50);
+              }, 60);
+            }, 10);
+          }, FLIP_DURATION * 1.5);
         }
       }, scrambleInterval);
     }, delay);
