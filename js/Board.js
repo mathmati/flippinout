@@ -74,21 +74,21 @@ export class Board {
     `;
     this.boardEl.appendChild(overlay);
 
-    // Settings flip tiles (mobile only - bottom corners)
+    // Settings flip tiles (mobile only - bottom corners, grey and dimmed)
     const settingsTiles = document.createElement('div');
     settingsTiles.className = 'settings-tiles';
     
-    // Left tile cycles: THEME → AMBER → GREEN → BLUE
+    // Left tile: "Th" for Theme
     this.leftSettingTile = document.createElement('div');
     this.leftSettingTile.className = 'settings-tile';
     this.leftSettingTile.id = 'left-setting-tile';
-    this.leftSettingTile.textContent = 'THEME';
+    this.leftSettingTile.textContent = 'Th';
     
-    // Right tile cycles: CLOCK → FULL
+    // Right tile: gear icon for settings menu
     this.rightSettingTile = document.createElement('div');
     this.rightSettingTile.className = 'settings-tile';
     this.rightSettingTile.id = 'right-setting-tile';
-    this.rightSettingTile.textContent = 'CLOCK';
+    this.rightSettingTile.textContent = '⚙';
     
     settingsTiles.appendChild(this.leftSettingTile);
     settingsTiles.appendChild(this.rightSettingTile);

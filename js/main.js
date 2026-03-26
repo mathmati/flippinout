@@ -87,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const leftSettingTile = document.getElementById('left-setting-tile');
   const rightSettingTile = document.getElementById('right-setting-tile');
   
-  // Left tile: cycles through themes
-  const themes = ['THEME', 'AMBER', 'GREEN', 'BLUE'];
+  // Left tile: "Th" cycles through themes
+  const themeLabels = ['Th', 'Am', 'Gr', 'Bl'];
   let themeIndex = 0;
   
   if (leftSettingTile) {
@@ -96,21 +96,20 @@ document.addEventListener('DOMContentLoaded', () => {
       leftSettingTile.classList.add('flipping');
       
       setTimeout(() => {
-        themeIndex = (themeIndex + 1) % themes.length;
-        const newText = themes[themeIndex];
-        leftSettingTile.textContent = newText;
-        
-        // Actually change the theme
+        // Cycle theme
         const themeName = themeManager.cycleTheme();
-        showNotification(`Theme: ${themeName}`);
+        themeIndex = (themeIndex + 1) % themeLabels.length;
+        leftSettingTile.textContent = themeLabels[themeIndex];
         
+        showNotification(`Theme: ${themeName}`);
         leftSettingTile.classList.remove('flipping');
       }, 150);
     });
   }
   
-  // Right tile: toggles between CLOCK and FULL
-  const rightOptions = ['CLOCK', 'FULL'];
+  // Right tile: gear icon cycles through options
+  const rightOptions = ['⚙', '⏰', '⛶'];
+  const rightActions = ['settings', 'clock', 'fullscreen'];
   let rightIndex = 0;
   
   if (rightSettingTile) {
@@ -119,11 +118,13 @@ document.addEventListener('DOMContentLoaded', () => {
       
       setTimeout(() => {
         rightIndex = (rightIndex + 1) % rightOptions.length;
-        const newText = rightOptions[rightIndex];
-        rightSettingTile.textContent = newText;
+        const newIcon = rightOptions[rightIndex];
+        const action = rightActions[rightIndex];
         
-        if (newText === 'CLOCK') {
-          // Was on FULL, switched to CLOCK - toggle clock mode
+        rightSettingTile.textContent = newIcon;
+        
+        if (action === 'clock') {
+          // Toggle clock mode
           isClockMode = !isClockMode;
           if (isClockMode) {
             rotator.stop();
@@ -134,14 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
             rotator.start();
             showNotification('Messages ON');
           }
-        } else {
-          // Was on CLOCK, switched to FULL - toggle fullscreen
+        } else if (action === 'fullscreen') {
+          // Toggle fullscreen
           if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen().catch(() => {});
           } else {
             document.exitFullscreen().catch(() => {});
           }
         }
+        // If action === 'settings', do nothing (just shows gear icon)
         
         rightSettingTile.classList.remove('flipping');
       }, 150);
