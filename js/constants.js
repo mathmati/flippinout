@@ -1,5 +1,5 @@
 export const GRID_COLS = 22;
-export const GRID_ROWS = 5;
+export const GRID_ROWS = 7;
 
 // More authentic mechanical timing
 export const SCRAMBLE_DURATION = 1200;
@@ -53,70 +53,90 @@ export const MESSAGES = [
     '',
     'GOD IS IN',
     'THE DETAILS .',
+    '',
     '- LUDWIG MIES',
+    '',
     ''
   ],
   [
     '',
     'STAY HUNGRY',
     'STAY FOOLISH',
+    '',
     '- STEVE JOBS',
+    '',
     ''
   ],
   [
     '',
     'GOOD DESIGN IS',
     'GOOD BUSINESS',
+    '',
     '- THOMAS WATSON',
+    '',
     ''
   ],
   [
     '',
     'LESS IS MORE',
     '',
+    '',
     '- MIES VAN DER ROHE',
+    '',
     ''
   ],
   [
     '',
     'MAKE IT SIMPLE',
     'BUT SIGNIFICANT',
+    '',
     '- DON DRAPER',
+    '',
     ''
   ],
   [
     '',
     'HAVE NO FEAR OF',
     'PERFECTION',
+    '',
     '- SALVADOR DALI',
+    '',
     ''
   ],
   [
     '',
     'FORM FOLLOWS',
     'FUNCTION',
+    '',
     '- LOUIS SULLIVAN',
+    '',
     ''
   ],
   [
-    '',
     'DESIGN IS NOT',
     'JUST WHAT IT LOOKS',
     'LIKE AND FEELS LIKE',
-    'DESIGN IS HOW IT WORKS'
+    '',
+    'DESIGN IS HOW',
+    'IT WORKS',
+    ''
   ],
   [
     '',
     'SIMPLICITY IS THE',
     'ULTIMATE',
     'SOPHISTICATION',
+    '',
+    '',
     ''
   ],
   [
-    '',
     'THE BEST WAY TO',
     'PREDICT THE FUTURE',
     'IS TO INVENT IT',
-    '- ALAN KAY'
+    '',
+    '- ALAN KAY',
+    '',
+    ''
   ]
 ];
