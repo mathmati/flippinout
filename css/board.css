@@ -24,18 +24,17 @@
 
 /* Fullscreen mode - fit grid to viewport */
 :fullscreen .board {
-  padding: 4px;
+  padding: 2px;
 }
 
-/* Portrait fullscreen - fit 22 cols + settings row */
+/* Portrait fullscreen - fit 22 columns */
 @media (orientation: portrait) {
   :fullscreen .board {
-    /* Calculate tile size to fit width with 22 columns */
-    /* Formula: (width - padding*2) / (22 tiles + 21 gaps) */
-    /* Gap is 1/8 of tile, so: (100vw - 8px) / (22 + 21/8) */
-    --tile-size: calc((100vw - 8px) / 24.625);
-    --tile-gap: calc(var(--tile-size) / 8);
-    padding: 4px 4px 4px 4px;
+    /* Calculate: (viewport_width - padding) / 22 tiles */
+    /* Then subtract a bit for gaps between tiles */
+    --tile-size: calc((100vw - 4px) / 23);
+    --tile-gap: 2px;
+    padding: 2px;
   }
   
   :fullscreen .settings-tiles {
@@ -43,14 +42,13 @@
   }
 }
 
-/* Landscape fullscreen - fit to height */
+/* Landscape fullscreen - fit 5 rows */
 @media (orientation: landscape) {
   :fullscreen .board {
-    /* Calculate to fit 5 rows + settings row */
-    /* Leave room for 6 rows total (5 main + 1 settings) */
-    --tile-size: calc((100vh - 8px) / 6.75);
-    --tile-gap: calc(var(--tile-size) / 8);
-    padding: 4px;
+    /* Calculate: (viewport_height - padding - settings) / 5 rows */
+    --tile-size: calc((100vh - 60px) / 5.5);
+    --tile-gap: 2px;
+    padding: 2px 2px 50px 2px;
   }
   
   :fullscreen .settings-tiles {
@@ -192,11 +190,11 @@
 .settings-tiles {
   display: none;
   position: absolute;
-  bottom: calc(var(--tile-gap) + 6px);
-  left: calc(var(--tile-gap));
-  right: calc(var(--tile-gap));
-  justify-content: space-between;
-  gap: var(--tile-gap);
+  bottom: 8px;
+  left: 8px;
+  right: 8px;
+  justify-content: center;
+  gap: calc(var(--tile-gap) * 2);
   z-index: 10;
   pointer-events: none;
 }
@@ -208,48 +206,61 @@
 }
 
 .settings-tile {
-  flex: 1;
+  min-width: calc(var(--tile-size) * 2.5);
   height: var(--tile-size);
-  max-width: calc(var(--tile-size) * 3);
   background: #1A1A1A;
-  border-radius: 2px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(var(--tile-size) * 0.32);
+  font-size: calc(var(--tile-size) * 0.35);
   font-weight: 700;
-  color: #444;
+  color: #555;
   cursor: pointer;
   transition: all 0.2s;
   pointer-events: auto;
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.4),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.03),
     inset 0 2px 6px rgba(0, 0, 0, 0.6);
-  position: relative;
-  opacity: 0.4;
+  opacity: 0.5;
+  padding: 0 8px;
 }
 
 /* Fullscreen button is more prominent */
 .settings-tile-primary {
-  background: #2A2A2A;
-  color: #888;
-  opacity: 0.7;
+  background: #333;
+  color: #AAA;
+  opacity: 0.8;
   font-weight: 900;
+  font-size: calc(var(--tile-size) * 0.4);
 }
 
 .settings-tile:active {
-  opacity: 0.6;
-  transform: scale(0.98);
+  opacity: 0.7;
+  transform: scale(0.96);
 }
 
 .settings-tile-primary:active {
-  opacity: 0.9;
+  opacity: 1;
+  transform: scale(0.96);
 }
 
 .settings-tile.active {
-  color: #666;
-  opacity: 0.6;
+  color: #777;
+  opacity: 0.7;
+  background: #252525;
+}
+
+/* Make sure buttons don't overlap */
+@media (max-width: 767px) {
+  .settings-tiles {
+    flex-wrap: nowrap;
+  }
+  
+  .settings-tile {
+    flex-shrink: 0;
+  }
 }
 
 .settings-tile.flipping {
