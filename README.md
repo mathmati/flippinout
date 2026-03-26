@@ -1,16 +1,18 @@
-# FlipOff Enhanced — Vintage Split-Flap Display
+# FlipOff Enhanced — Authentic Split-Flap Display
 
-An enhanced fork of [magnum6actual/flipoff](https://github.com/magnum6actual/flipoff) with improved mechanics, vintage themes, and clock mode.
+An enhanced fork of [magnum6actual/flipoff](https://github.com/magnum6actual/flipoff) with **authentic monochrome aesthetics**, improved mechanics, and clock mode.
 
-## ✨ New Features
+## ✨ Key Improvements
 
-### 🎨 Four Vintage Themes
-- **Classic White** — Modern split-flap (original style)
-- **Vintage Amber** — 1970s airport terminals
-- **Terminal Green** — Old-school CRT displays  
-- **Airport Blue** — Modern travel hub aesthetic
+### 🎨 Four Authentic Monochrome Themes
+Real split-flap displays were **never multicolored**—they were mechanical, uniform, functional. This version respects that.
 
-Press **T** to cycle through themes
+- **Classic Airport** — White on black (train stations, airports)
+- **Vintage Amber** — 1970s airport terminal glow
+- **Terminal Green** — Classic CRT aesthetic  
+- **Railway Blue** — Modern European rail stations
+
+Press **T** to cycle through themes — all monochrome, no rainbow scrambles
 
 ### ⏰ Live Clock Mode
 - Real-time clock display with date
@@ -59,33 +61,40 @@ Press **T** to cycle through themes
 
 ## 📦 What Changed
 
+### Authenticity First
+- **Removed multicolor scramble** — Real split-flap boards were monochrome, not rainbow
+- **Monochrome themes** — Each theme uses one color, just like the real mechanical boards
+- **No gimmicks** — Authentic to 1960s-80s airport/train station displays
+
 ### Code Improvements
-- `ThemeManager.js` — New theme system with CSS variables
+- `ThemeManager.js` — Clean monochrome theme system with CSS variables
 - `ClockMode.js` — Live clock display with date
-- Enhanced timing constants for more authentic feel
-- Theme-aware tile scramble colors
-- Better animation easing curves
+- Enhanced timing constants for more mechanical feel
+- Simplified tile animations (no color cycling)
+- Better bounce/settle physics
 
 ### Visual Enhancements
 - Vintage grain texture overlay
-- Glow effects on accent indicators
+- Subtle glow on text (authentic phosphor/LED look)
 - Improved tile shadows and depth
-- Larger, more legible font (55% vs 52% of tile size)
-- Font weight 900 (was 700) for boldness
+- Larger, bolder font (55% tile size, weight 900)
+- Single accent color per theme (not cycling)
 
 ### UX Polish
-- On-screen notification for theme/mode changes
+- On-screen notifications for mode changes
 - Keyboard hints in hero section
 - Updated shortcuts overlay
-- Better CTAs and copy
+- Honest copy (no marketing fluff)
 
-## 🎨 Theme Details
+## 🎨 Theme Philosophy
 
-Each theme includes:
-- Custom text color with glow
-- Background colors (tile and board)
-- 5 scramble animation colors
-- 3 accent indicator colors
+Each theme is **100% monochrome** because that's how real split-flap boards worked:
+- One text color
+- One background color
+- No scramble color cycling
+- Just mechanical character flipping
+
+Authentic to: airports, train stations, baseball scoreboards, stock tickers.
 
 ## 📝 Credits
 

@@ -1,7 +1,7 @@
 import { Tile } from './Tile.js';
 import {
   GRID_COLS, GRID_ROWS, STAGGER_DELAY, SCRAMBLE_DURATION,
-  TOTAL_TRANSITION, ACCENT_COLORS
+  TOTAL_TRANSITION
 } from './constants.js';
 
 export class Board {
@@ -91,13 +91,13 @@ export class Board {
   }
 
   _updateAccentColors() {
-    const colors = this.themeManager ? 
-      this.themeManager.getAccentColors() : ACCENT_COLORS;
-    const color = colors[this.accentIndex % colors.length];
+    const theme = this.themeManager ? this.themeManager.getTheme() : null;
+    const color = theme ? theme.accentColor : '#FFFFFF';
+    
     const segments = this.boardEl.querySelectorAll('.accent-segment');
     segments.forEach(seg => {
       seg.style.backgroundColor = color;
-      seg.style.boxShadow = `0 0 8px ${color}, 0 0 2px ${color}`;
+      seg.style.boxShadow = `0 0 12px ${color}, 0 0 4px ${color}`;
     });
   }
 
@@ -107,10 +107,6 @@ export class Board {
 
     // Format lines into grid
     const newGrid = this._formatToGrid(lines);
-
-    // Get current theme colors
-    const scrambleColors = this.themeManager ? 
-      this.themeManager.getScrambleColors() : ACCENT_COLORS;
 
     // Determine which tiles need to change
     let hasChanges = false;
@@ -122,7 +118,7 @@ export class Board {
 
         if (newChar !== oldChar) {
           const delay = (r * this.cols + c) * STAGGER_DELAY;
-          this.tiles[r][c].scrambleTo(newChar, delay, scrambleColors);
+          this.tiles[r][c].scrambleTo(newChar, delay);
           hasChanges = true;
         }
       }
@@ -133,8 +129,7 @@ export class Board {
       this.soundEngine.playTransition();
     }
 
-    // Update accent bar colors
-    this.accentIndex++;
+    // Update accent bar (subtle pulse)
     this._updateAccentColors();
 
     // Update grid state

@@ -22,23 +22,20 @@ export class ThemeManager {
     
     root.style.setProperty('--theme-text-color', theme.textColor);
     root.style.setProperty('--theme-bg-color', theme.bgColor);
+    root.style.setProperty('--theme-tile-bg', theme.tileBg);
     root.style.setProperty('--theme-board-bg', theme.boardBg);
+    root.style.setProperty('--theme-accent-color', theme.accentColor);
     
     // Apply to board element
     if (this.boardEl) {
       this.boardEl.style.background = theme.boardBg;
     }
     
-    // Store theme colors for scramble animation
-    this.currentScrambleColors = theme.scrambleColors;
-    this.currentAccentColors = theme.accentColors;
+    // Store current theme
+    this.currentThemeData = theme;
   }
 
-  getScrambleColors() {
-    return this.currentScrambleColors;
-  }
-
-  getAccentColors() {
-    return this.currentAccentColors;
+  getTheme() {
+    return this.currentThemeData;
   }
 }

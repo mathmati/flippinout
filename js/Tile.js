@@ -1,4 +1,4 @@
-import { CHARSET, SCRAMBLE_COLORS, SCRAMBLE_DURATION, FLIP_DURATION } from './constants.js';
+import { CHARSET, SCRAMBLE_DURATION, FLIP_DURATION } from './constants.js';
 
 export class Tile {
   constructor(row, col) {
@@ -37,7 +37,7 @@ export class Tile {
     this.frontEl.style.backgroundColor = '';
   }
 
-  scrambleTo(targetChar, delay, scrambleColors) {
+  scrambleTo(targetChar, delay) {
     if (targetChar === this.currentChar) return;
 
     // Cancel any in-progress animation
@@ -47,8 +47,6 @@ export class Tile {
     }
     this.isAnimating = true;
 
-    const colors = scrambleColors || SCRAMBLE_COLORS;
-
     setTimeout(() => {
       this.el.classList.add('scrambling');
       let scrambleCount = 0;
@@ -56,26 +54,16 @@ export class Tile {
       const scrambleInterval = 65;
 
       this._scrambleTimer = setInterval(() => {
-        // Random character with mechanical feel - prefer nearby characters
+        // Random character flipping - authentic mechanical behavior
+        // Real split-flap boards just cycle through characters, no color changes
         let randChar;
         if (Math.random() < 0.3 && targetChar !== ' ') {
-          // Sometimes show target character early (mechanical behavior)
+          // Sometimes show target character early (mechanical overshoot behavior)
           randChar = targetChar;
         } else {
           randChar = CHARSET[Math.floor(Math.random() * CHARSET.length)];
         }
         this.frontSpan.textContent = randChar === ' ' ? '' : randChar;
-
-        // Cycle background color
-        const color = colors[scrambleCount % colors.length];
-        this.frontEl.style.backgroundColor = color;
-
-        // Adjust text color for contrast
-        if (color === '#FFFFFF' || color === '#FFCC00' || color === '#FFB000') {
-          this.frontSpan.style.color = '#111';
-        } else {
-          this.frontSpan.style.color = '';
-        }
 
         scrambleCount++;
 
@@ -83,14 +71,10 @@ export class Tile {
           clearInterval(this._scrambleTimer);
           this._scrambleTimer = null;
 
-          // Reset colors
-          this.frontEl.style.backgroundColor = '';
-          this.frontSpan.style.color = '';
-
           // Set the final character with mechanical settling animation
           this.frontSpan.textContent = targetChar === ' ' ? '' : targetChar;
 
-          // Mechanical flip settle: slight overshoot and bounce
+          // Mechanical flip settle: slight overshoot and bounce back
           this.innerEl.style.transition = `transform ${FLIP_DURATION}ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`;
           this.innerEl.style.transform = 'perspective(600px) rotateX(-12deg)';
 
