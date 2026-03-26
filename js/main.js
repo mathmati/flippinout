@@ -83,61 +83,70 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile settings panel controls
-  const mobileThemeBtn = document.getElementById('mobile-theme-btn');
-  const mobileClockBtn = document.getElementById('mobile-clock-btn');
-  const mobileFullscreenBtn = document.getElementById('mobile-fullscreen-btn');
+  // Mobile settings flip tiles
+  const leftSettingTile = document.getElementById('left-setting-tile');
+  const rightSettingTile = document.getElementById('right-setting-tile');
   
-  const closeSettingsPanel = () => {
-    const panel = document.querySelector('.settings-panel');
-    if (panel) panel.classList.remove('visible');
-  };
-
-  if (mobileThemeBtn) {
-    mobileThemeBtn.addEventListener('click', () => {
-      const themeName = themeManager.cycleTheme();
-      showNotification(`Theme: ${themeName}`);
-      closeSettingsPanel();
-    });
-  }
-
-  if (mobileClockBtn) {
-    mobileClockBtn.addEventListener('click', () => {
-      isClockMode = !isClockMode;
-      if (isClockMode) {
-        rotator.stop();
-        clockMode.start();
-        mobileClockBtn.classList.add('active');
-        showNotification('Clock Mode ON');
-      } else {
-        clockMode.stop();
-        rotator.start();
-        mobileClockBtn.classList.remove('active');
-        showNotification('Message Mode ON');
-      }
-      closeSettingsPanel();
-    });
-  }
-
-  if (mobileFullscreenBtn) {
-    mobileFullscreenBtn.addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen().catch(() => {});
-      } else {
-        document.exitFullscreen().catch(() => {});
-      }
-      closeSettingsPanel();
+  // Left tile: cycles through themes
+  const themes = ['THEME', 'AMBER', 'GREEN', 'BLUE'];
+  let themeIndex = 0;
+  
+  if (leftSettingTile) {
+    leftSettingTile.addEventListener('click', () => {
+      leftSettingTile.classList.add('flipping');
+      
+      setTimeout(() => {
+        themeIndex = (themeIndex + 1) % themes.length;
+        const newText = themes[themeIndex];
+        leftSettingTile.textContent = newText;
+        
+        // Actually change the theme
+        const themeName = themeManager.cycleTheme();
+        showNotification(`Theme: ${themeName}`);
+        
+        leftSettingTile.classList.remove('flipping');
+      }, 150);
     });
   }
   
-  // Close settings panel when clicking outside
-  document.addEventListener('click', (e) => {
-    const panel = document.querySelector('.settings-panel');
-    const toggle = document.querySelector('.settings-toggle');
-    if (panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
-      panel.classList.remove('visible');
-    }
-  });
+  // Right tile: toggles between CLOCK and FULL
+  const rightOptions = ['CLOCK', 'FULL'];
+  let rightIndex = 0;
+  
+  if (rightSettingTile) {
+    rightSettingTile.addEventListener('click', () => {
+      rightSettingTile.classList.add('flipping');
+      
+      setTimeout(() => {
+        rightIndex = (rightIndex + 1) % rightOptions.length;
+        const newText = rightOptions[rightIndex];
+        rightSettingTile.textContent = newText;
+        
+        if (newText === 'CLOCK') {
+          // Was on FULL, switched to CLOCK - toggle clock mode
+          isClockMode = !isClockMode;
+          if (isClockMode) {
+            rotator.stop();
+            clockMode.start();
+            showNotification('Clock Mode ON');
+          } else {
+            clockMode.stop();
+            rotator.start();
+            showNotification('Messages ON');
+          }
+        } else {
+          // Was on CLOCK, switched to FULL - toggle fullscreen
+          if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+          } else {
+            document.exitFullscreen().catch(() => {});
+          }
+        }
+        
+        rightSettingTile.classList.remove('flipping');
+      }, 150);
+    });
+  }
   
   // Notification system for theme/mode changes
   function showNotification(message) {
