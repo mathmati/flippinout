@@ -83,15 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile controls
+  // Mobile settings panel controls
   const mobileThemeBtn = document.getElementById('mobile-theme-btn');
   const mobileClockBtn = document.getElementById('mobile-clock-btn');
   const mobileFullscreenBtn = document.getElementById('mobile-fullscreen-btn');
+  
+  const closeSettingsPanel = () => {
+    const panel = document.querySelector('.settings-panel');
+    if (panel) panel.classList.remove('visible');
+  };
 
   if (mobileThemeBtn) {
     mobileThemeBtn.addEventListener('click', () => {
       const themeName = themeManager.cycleTheme();
       showNotification(`Theme: ${themeName}`);
+      closeSettingsPanel();
     });
   }
 
@@ -109,6 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mobileClockBtn.classList.remove('active');
         showNotification('Message Mode ON');
       }
+      closeSettingsPanel();
     });
   }
 
@@ -119,8 +126,18 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         document.exitFullscreen().catch(() => {});
       }
+      closeSettingsPanel();
     });
   }
+  
+  // Close settings panel when clicking outside
+  document.addEventListener('click', (e) => {
+    const panel = document.querySelector('.settings-panel');
+    const toggle = document.querySelector('.settings-toggle');
+    if (panel && !panel.contains(e.target) && !toggle.contains(e.target)) {
+      panel.classList.remove('visible');
+    }
+  });
   
   // Notification system for theme/mode changes
   function showNotification(message) {
