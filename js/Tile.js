@@ -37,7 +37,7 @@ export class Tile {
     this.frontEl.style.backgroundColor = '';
   }
 
-  scrambleTo(targetChar, delay) {
+  scrambleTo(targetChar, delay, scrambleColors) {
     if (targetChar === this.currentChar) return;
 
     // Cancel any in-progress animation
@@ -47,23 +47,31 @@ export class Tile {
     }
     this.isAnimating = true;
 
+    const colors = scrambleColors || SCRAMBLE_COLORS;
+
     setTimeout(() => {
       this.el.classList.add('scrambling');
       let scrambleCount = 0;
-      const maxScrambles = 10 + Math.floor(Math.random() * 4);
-      const scrambleInterval = 70;
+      const maxScrambles = 12 + Math.floor(Math.random() * 6);
+      const scrambleInterval = 65;
 
       this._scrambleTimer = setInterval(() => {
-        // Random character
-        const randChar = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+        // Random character with mechanical feel - prefer nearby characters
+        let randChar;
+        if (Math.random() < 0.3 && targetChar !== ' ') {
+          // Sometimes show target character early (mechanical behavior)
+          randChar = targetChar;
+        } else {
+          randChar = CHARSET[Math.floor(Math.random() * CHARSET.length)];
+        }
         this.frontSpan.textContent = randChar === ' ' ? '' : randChar;
 
         // Cycle background color
-        const color = SCRAMBLE_COLORS[scrambleCount % SCRAMBLE_COLORS.length];
+        const color = colors[scrambleCount % colors.length];
         this.frontEl.style.backgroundColor = color;
 
-        // Briefly change text color for contrast on light backgrounds
-        if (color === '#FFFFFF' || color === '#FFCC00') {
+        // Adjust text color for contrast
+        if (color === '#FFFFFF' || color === '#FFCC00' || color === '#FFB000') {
           this.frontSpan.style.color = '#111';
         } else {
           this.frontSpan.style.color = '';
@@ -79,22 +87,24 @@ export class Tile {
           this.frontEl.style.backgroundColor = '';
           this.frontSpan.style.color = '';
 
-          // Set the final character directly (skip 3D flip for reliability)
-          // Use a brief opacity flash to simulate the flip settle
+          // Set the final character with mechanical settling animation
           this.frontSpan.textContent = targetChar === ' ' ? '' : targetChar;
 
-          // Quick flash effect: brief scale transform
-          this.innerEl.style.transition = `transform ${FLIP_DURATION}ms ease-in-out`;
-          this.innerEl.style.transform = 'perspective(400px) rotateX(-8deg)';
+          // Mechanical flip settle: slight overshoot and bounce
+          this.innerEl.style.transition = `transform ${FLIP_DURATION}ms cubic-bezier(0.68, -0.55, 0.265, 1.55)`;
+          this.innerEl.style.transform = 'perspective(600px) rotateX(-12deg)';
 
           setTimeout(() => {
-            this.innerEl.style.transform = '';
+            this.innerEl.style.transform = 'perspective(600px) rotateX(3deg)';
             setTimeout(() => {
-              this.innerEl.style.transition = '';
-              this.el.classList.remove('scrambling');
-              this.currentChar = targetChar;
-              this.isAnimating = false;
-            }, FLIP_DURATION);
+              this.innerEl.style.transform = '';
+              setTimeout(() => {
+                this.innerEl.style.transition = '';
+                this.el.classList.remove('scrambling');
+                this.currentChar = targetChar;
+                this.isAnimating = false;
+              }, FLIP_DURATION / 2);
+            }, FLIP_DURATION / 3);
           }, FLIP_DURATION / 2);
         }
       }, scrambleInterval);

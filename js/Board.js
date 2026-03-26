@@ -5,10 +5,11 @@ import {
 } from './constants.js';
 
 export class Board {
-  constructor(containerEl, soundEngine) {
+  constructor(containerEl, soundEngine, themeManager) {
     this.cols = GRID_COLS;
     this.rows = GRID_ROWS;
     this.soundEngine = soundEngine;
+    this.themeManager = themeManager;
     this.isTransitioning = false;
     this.tiles = [];
     this.currentGrid = [];
@@ -66,6 +67,8 @@ export class Board {
     overlay.innerHTML = `
       <div><span>Next message</span><kbd>Enter</kbd></div>
       <div><span>Previous</span><kbd>\u2190</kbd></div>
+      <div><span>Clock mode</span><kbd>C</kbd></div>
+      <div><span>Change theme</span><kbd>T</kbd></div>
       <div><span>Fullscreen</span><kbd>F</kbd></div>
       <div><span>Mute</span><kbd>M</kbd></div>
     `;
@@ -88,10 +91,13 @@ export class Board {
   }
 
   _updateAccentColors() {
-    const color = ACCENT_COLORS[this.accentIndex % ACCENT_COLORS.length];
+    const colors = this.themeManager ? 
+      this.themeManager.getAccentColors() : ACCENT_COLORS;
+    const color = colors[this.accentIndex % colors.length];
     const segments = this.boardEl.querySelectorAll('.accent-segment');
     segments.forEach(seg => {
       seg.style.backgroundColor = color;
+      seg.style.boxShadow = `0 0 8px ${color}, 0 0 2px ${color}`;
     });
   }
 
@@ -101,6 +107,10 @@ export class Board {
 
     // Format lines into grid
     const newGrid = this._formatToGrid(lines);
+
+    // Get current theme colors
+    const scrambleColors = this.themeManager ? 
+      this.themeManager.getScrambleColors() : ACCENT_COLORS;
 
     // Determine which tiles need to change
     let hasChanges = false;
@@ -112,7 +122,7 @@ export class Board {
 
         if (newChar !== oldChar) {
           const delay = (r * this.cols + c) * STAGGER_DELAY;
-          this.tiles[r][c].scrambleTo(newChar, delay);
+          this.tiles[r][c].scrambleTo(newChar, delay, scrambleColors);
           hasChanges = true;
         }
       }
