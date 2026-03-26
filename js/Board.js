@@ -74,15 +74,28 @@ export class Board {
     `;
     this.boardEl.appendChild(overlay);
 
-    // Mobile controls
-    const mobileControls = document.createElement('div');
-    mobileControls.className = 'mobile-controls';
-    mobileControls.innerHTML = `
-      <button id="mobile-theme-btn">🎨 Theme</button>
-      <button id="mobile-clock-btn">⏰ Clock</button>
-      <button id="mobile-fullscreen-btn">⛶ Full</button>
+    // Settings toggle (mobile only)
+    const settingsToggle = document.createElement('div');
+    settingsToggle.className = 'settings-toggle';
+    settingsToggle.textContent = '⚙️';
+    settingsToggle.title = 'Settings';
+    settingsToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const panel = this.boardEl.querySelector('.settings-panel');
+      if (panel) panel.classList.toggle('visible');
+    });
+    this.boardEl.appendChild(settingsToggle);
+
+    // Settings panel (mobile only)
+    const settingsPanel = document.createElement('div');
+    settingsPanel.className = 'settings-panel';
+    settingsPanel.innerHTML = `
+      <h3>Settings</h3>
+      <button id="mobile-theme-btn"><span class="emoji">🎨</span> Change Theme</button>
+      <button id="mobile-clock-btn"><span class="emoji">⏰</span> Clock Mode</button>
+      <button id="mobile-fullscreen-btn"><span class="emoji">⛶</span> Fullscreen</button>
     `;
-    this.boardEl.appendChild(mobileControls);
+    this.boardEl.appendChild(settingsPanel);
 
     containerEl.appendChild(this.boardEl);
     this._updateAccentColors();
