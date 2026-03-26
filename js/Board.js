@@ -74,28 +74,25 @@ export class Board {
     `;
     this.boardEl.appendChild(overlay);
 
-    // Settings toggle (mobile only)
-    const settingsToggle = document.createElement('div');
-    settingsToggle.className = 'settings-toggle';
-    settingsToggle.textContent = '⚙️';
-    settingsToggle.title = 'Settings';
-    settingsToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const panel = this.boardEl.querySelector('.settings-panel');
-      if (panel) panel.classList.toggle('visible');
-    });
-    this.boardEl.appendChild(settingsToggle);
-
-    // Settings panel (mobile only)
-    const settingsPanel = document.createElement('div');
-    settingsPanel.className = 'settings-panel';
-    settingsPanel.innerHTML = `
-      <h3>Settings</h3>
-      <button id="mobile-theme-btn"><span class="emoji">🎨</span> Change Theme</button>
-      <button id="mobile-clock-btn"><span class="emoji">⏰</span> Clock Mode</button>
-      <button id="mobile-fullscreen-btn"><span class="emoji">⛶</span> Fullscreen</button>
-    `;
-    this.boardEl.appendChild(settingsPanel);
+    // Settings flip tiles (mobile only - bottom corners)
+    const settingsTiles = document.createElement('div');
+    settingsTiles.className = 'settings-tiles';
+    
+    // Left tile cycles: THEME → AMBER → GREEN → BLUE
+    this.leftSettingTile = document.createElement('div');
+    this.leftSettingTile.className = 'settings-tile';
+    this.leftSettingTile.id = 'left-setting-tile';
+    this.leftSettingTile.textContent = 'THEME';
+    
+    // Right tile cycles: CLOCK → FULL
+    this.rightSettingTile = document.createElement('div');
+    this.rightSettingTile.className = 'settings-tile';
+    this.rightSettingTile.id = 'right-setting-tile';
+    this.rightSettingTile.textContent = 'CLOCK';
+    
+    settingsTiles.appendChild(this.leftSettingTile);
+    settingsTiles.appendChild(this.rightSettingTile);
+    this.boardEl.appendChild(settingsTiles);
 
     containerEl.appendChild(this.boardEl);
     this._updateAccentColors();
