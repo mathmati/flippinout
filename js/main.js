@@ -83,70 +83,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Mobile settings flip tiles
+  // Mobile settings tiles
   const leftSettingTile = document.getElementById('left-setting-tile');
+  const centerSettingTile = document.getElementById('center-setting-tile');
   const rightSettingTile = document.getElementById('right-setting-tile');
   
-  // Left tile: "Th" cycles through themes
-  const themeLabels = ['Th', 'Am', 'Gr', 'Bl'];
-  let themeIndex = 0;
-  
+  // Left tile: Theme (cycles through themes)
   if (leftSettingTile) {
     leftSettingTile.addEventListener('click', () => {
       leftSettingTile.classList.add('flipping');
       
       setTimeout(() => {
-        // Cycle theme
         const themeName = themeManager.cycleTheme();
-        themeIndex = (themeIndex + 1) % themeLabels.length;
-        leftSettingTile.textContent = themeLabels[themeIndex];
-        
         showNotification(`Theme: ${themeName}`);
         leftSettingTile.classList.remove('flipping');
       }, 150);
     });
   }
   
-  // Right tile: gear icon cycles through options
-  const rightOptions = ['⚙', '⏰', '⛶'];
-  const rightActions = ['settings', 'clock', 'fullscreen'];
-  let rightIndex = 0;
-  
-  if (rightSettingTile) {
-    rightSettingTile.addEventListener('click', () => {
-      rightSettingTile.classList.add('flipping');
+  // Center tile: Clock (toggles clock mode)
+  if (centerSettingTile) {
+    centerSettingTile.addEventListener('click', () => {
+      centerSettingTile.classList.add('flipping');
       
       setTimeout(() => {
-        rightIndex = (rightIndex + 1) % rightOptions.length;
-        const newIcon = rightOptions[rightIndex];
-        const action = rightActions[rightIndex];
-        
-        rightSettingTile.textContent = newIcon;
-        
-        if (action === 'clock') {
-          // Toggle clock mode
-          isClockMode = !isClockMode;
-          if (isClockMode) {
-            rotator.stop();
-            clockMode.start();
-            showNotification('Clock Mode ON');
-          } else {
-            clockMode.stop();
-            rotator.start();
-            showNotification('Messages ON');
-          }
-        } else if (action === 'fullscreen') {
-          // Toggle fullscreen
-          if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen().catch(() => {});
-          } else {
-            document.exitFullscreen().catch(() => {});
-          }
+        isClockMode = !isClockMode;
+        if (isClockMode) {
+          rotator.stop();
+          clockMode.start();
+          centerSettingTile.classList.add('active');
+          showNotification('Clock Mode ON');
+        } else {
+          clockMode.stop();
+          rotator.start();
+          centerSettingTile.classList.remove('active');
+          showNotification('Messages ON');
         }
-        // If action === 'settings', do nothing (just shows gear icon)
-        
-        rightSettingTile.classList.remove('flipping');
+        centerSettingTile.classList.remove('flipping');
       }, 150);
+    });
+  }
+  
+  // Right tile: Fullscreen button (main action)
+  if (rightSettingTile) {
+    rightSettingTile.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {
+          showNotification('Fullscreen not available');
+        });
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
     });
   }
   
