@@ -108,3 +108,7 @@ Same as original — check original repo for license details.
 ---
 
 **Press T to cycle themes · Press C for clock · Press F for fullscreen**
+
+## Transparency
+
+Built with [Claude Code](https://claude.com/claude-code).
